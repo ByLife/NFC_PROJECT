@@ -14,7 +14,7 @@ dotenv.config()
 
 export class Autoload { // This is the class that starts the server
     static app: express.Express = express();
-    static socket: Socket.Server = new Socket.Server(process.env.SOCKET_PORT ? Number(process.env.SOCKET_PORT) : 3001);
+    //static socket: Socket.Server = new Socket.Server(process.env.SOCKET_PORT ? Number(process.env.SOCKET_PORT) : 3001);
     static port: number = process.env.HTTP_PORT ? Number(process.env.APP_PORT) : 3000;
     static baseDir = path.resolve(__dirname, "../socket");
     
@@ -160,24 +160,24 @@ export class Autoload { // This is the class that starts the server
                 Logger.success(`Server started on port ${Autoload.port}`)
             });
 
-            Autoload.socket.on("connection", function (socket: Socket.Socket) {
-                const newSocket = redefineSocket(socket);
-                socket.on("conn", async (data: string) => {
-                    console.log(data)
-                    if(!data) return socket.emit("conn", "Please provide a token")
-                    const user = await User.findOne({token: data})
-                    console.log(user)
-                    if(!user) return socket.emit("conn", "Invalid token")
-                    newSocket.storage.user = user
-                    newSocket.storage.logged = true
-                    socket.emit("conn", "Connected to the server")
-                    Autoload.attachHandlersToSocket(newSocket);
-                })  
-                socket.on("disconnect", () => {
-                    Logger.warn(`Socket ${socket.id} disconnected.`);
-                    socket.disconnect(true)
-                });
-            });
+            // Autoload.socket.on("connection", function (socket: Socket.Socket) {
+            //     const newSocket = redefineSocket(socket);
+            //     socket.on("conn", async (data: string) => {
+            //         console.log(data)
+            //         if(!data) return socket.emit("conn", "Please provide a token")
+            //         const user = await User.findOne({token: data})
+            //         console.log(user)
+            //         if(!user) return socket.emit("conn", "Invalid token")
+            //         newSocket.storage.user = user
+            //         newSocket.storage.logged = true
+            //         socket.emit("conn", "Connected to the server")
+            //         Autoload.attachHandlersToSocket(newSocket);
+            //     })  
+            //     socket.on("disconnect", () => {
+            //         Logger.warn(`Socket ${socket.id} disconnected.`);
+            //         socket.disconnect(true)
+            //     });
+            // });
 
             Logger.beautifulSpace()
             Autoload.logInfo()
@@ -186,6 +186,6 @@ export class Autoload { // This is the class that starts the server
     }
 
     public static stop() { // This is the function that stops the server
-        Autoload.socket.close()
+        //Autoload.socket.close()
     }
 }

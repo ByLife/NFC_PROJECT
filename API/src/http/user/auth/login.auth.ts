@@ -23,10 +23,13 @@ export default {
             }
 
             const match = await bcrypt.compare(password, user.password);
+
+            if(!match) Logger.warn(`Invalid login made for the user ${user.firstName} ${user.lastName} with the phone number ${user.phone_number}`)
+
             if (!match) return res.send({ error: "Invalid password" });
             
-            Logger.info(`User logged in: ${phone_number}`);
-            return res.send({ info: "User successfully logged in", userData: user });
+            Logger.info(`User logged in under the name of ${user.firstName} and ${user.lastName} with phone number ${user.phone_number} and he is a ${user.role == 0 ? 'User' : 'Admin'}`);
+            return res.send({ info: "User successfully logged in", data: user });
 
         } catch (err) {
             Logger.error(`Login error: ${err}`);

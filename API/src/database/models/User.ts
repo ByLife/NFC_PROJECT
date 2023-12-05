@@ -10,6 +10,7 @@ export interface User {
     phone_number: number;
 
     created_at: Date;
+    role: number;
 }
 
 export interface UserDocument extends User, Document {}
@@ -23,7 +24,8 @@ const UserSchema = new Schema({
     password: {type: String, required: true},
     phone_number: {type: Number, required: true},
 
-    created_at: {type: Date, default: new Date().toLocaleDateString()}
+    created_at: {type: Date, default: new Date().toLocaleDateString()},
+    role: {type: Number, default: 0}
 });
 
 export default mongoose.model<UserDocument>("User", UserSchema);

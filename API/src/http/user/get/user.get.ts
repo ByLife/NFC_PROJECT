@@ -1,5 +1,5 @@
 import express from "express";
-import User from "../../database/models/User"
+import User from "../../../database/models/User"
 
 export default {
     name: "/user/get",

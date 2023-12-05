@@ -1,9 +1,9 @@
 import mongoose, {Document, Schema} from "mongoose";
-import  { UserDocument } from "./User";
+import  User, { UserDocument } from "./User";
 
 export interface Product {
     serial_id: number;
-    
+    uid: number; 
     price: number;
     productName: string;
 
@@ -15,12 +15,14 @@ export interface ProductDocument extends Product, Document {}
 
 const ProductSchema = new Schema({
     serial_id: {type: String, required: true, unique: true},
+    uid: {type: String, require: true},
     
     price: {type: Number, required: true, unique: false},
     productName: {type: String, required: true, unique: false},
 
-    previousOwners: {type: Array<Object>, required: true, unique: false},
-    actualOwner: {type: Object, required: true}
+    previousOwners: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
+    actualOwner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: false, default: null }
 });
 
 export default mongoose.model<ProductDocument>("Product", ProductSchema);
+

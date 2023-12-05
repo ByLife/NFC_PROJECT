@@ -28,7 +28,6 @@ export default {
 
             if (password.length < 8 || !/[A-Z]/.test(password) || !/[!@#$%^&*(),.?":{}|<>]/.test(password)) return res.send({ error: "Password must be more than 8 characters, include an uppercase letter, and a special character" });
             
-            Logger.info(phone_number + " " + typeof phone_number)
             if( typeof phone_number !== "string") return res.send({ error: userError + "Phone must be a string" });
             if(phone_number.length < 9 || phone_number.length > 13) return res.send({error: userError + "Invalid phone number"})
             
@@ -48,9 +47,11 @@ export default {
                 token: UTILS.GENERATE.USER.default.TOKEN,
             })
 
+            Logger.info(`A user has been created under the name of ${firstName} ${lastName} and phone number ${phone_number}`)
+
             return res.send({
                 info: "User created",
-                userData: user
+                data: user
             })
 
     

@@ -1,19 +1,17 @@
 let url = window.location.search
 token = url.split('=')[1]
 
-console.log(token);
 
-const createUser = async (token) => {
+const createUser = async () => {
 
   const params = {
-    token: token,
     firstName: "yacine",
     lastName: "lyoubi",
     password: "Admin123!",
     phoneNumber: "0782716090"
   };
 
-  let urlApi = "http://10.6.112.45:3000"
+  let urlApi = "http://localhost:3000"
   let apiPath = "/api"
   let registerPath = "/user/auth/register"
 
@@ -28,6 +26,7 @@ const createUser = async (token) => {
     }
 
     const data = await response.json();
+    console.log(data);
 
     // Do something with the response data.
   } catch (error) {
@@ -43,7 +42,7 @@ const loginUser = async () => {
     password: "Admin123!"
   };
 
-  let urlApi = "http://10.6.112.45:3000"
+  let urlApi = "http://localhost:3000"
   let apiPath = "/api"
   let registerPath = "/user/auth/login"
 
@@ -71,7 +70,7 @@ const redirectUser = async (token) => {
     token: token
   };
 
-  let urlApi = "http://10.6.112.45:3000"
+  let urlApi = "http://localhost:3000"
   let apiPath = "/api"
   let registerPath = "/user/auth/get"
 
@@ -87,8 +86,9 @@ const redirectUser = async (token) => {
 
     const data = await response.json();
 
-    if (data.error) window.location.replace("http://localhost:5500/register.html")
-    if (data.info) window.location.replace("http://localhost:5500/login.html")
+
+    if (data.error) window.location.replace("http://localhost:5500/client/register.html")
+    if (data.info) window.location.replace("http://localhost:5500/client/login.html")
 
     // Do something with the response data.
   } catch (error) {
