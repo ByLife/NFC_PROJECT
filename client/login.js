@@ -84,6 +84,5 @@ const wipeOutPreviousForm = () => {
 
 
 const redirectTo = (path) => {
-
-    window.location.replace = `/client/${path}.html`;
-};
+    window.location.replace = `http://localhost:3000/client/${path}.html`;
+}
