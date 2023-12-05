@@ -28,7 +28,8 @@ const loginUser = async () => {
         }
         else {
             const { token } = data.data;
-            saveTokenToLocalStorage(token)
+            saveTokenToLocalStorage('authToken', token)
+            saveTokenToLocalStorage('userInfo', JSON.stringify(data));
             redirectTo("dashbord")
         }
 
@@ -42,11 +43,11 @@ const loginUser = async () => {
     }
 };
 
-const saveTokenToLocalStorage = (token) => {
+const saveTokenToLocalStorage = (key,token) => {
     // Check if localStorage is supported by the browser
     if (typeof Storage !== 'undefined') {
         // Save the token to localStorage
-        localStorage.setItem('authToken', token);
+        localStorage.setItem(key, token);
         console.log('Token saved to localStorage:', token);
     } else {
         // Handle the case where localStorage is not supported
@@ -84,5 +85,5 @@ const wipeOutPreviousForm = () => {
 
 
 const redirectTo = (path) => {
-    window.location.replace = `http://localhost:3000/client/${path}.html`;
-}
+    window.location.href = `http://localhost:5500/client/${path}.html`;
+};
