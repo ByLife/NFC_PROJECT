@@ -22,27 +22,18 @@ const loginUser = async () => {
         }
 
         const data = await response.json();
-        console.log(data)
-        // const {
-        //     _id,
-        //     user_id,
-        //     token,
-        //     firstName,
-        //     lastName,
-        //     password,
-        //     phone_number,
-        //     created_at,
-        //     role,
-        //     __v
-        // } = data.data;
+        if (data.error) {
+            displayErrorMessage()
+            wipeOutPreviousForm()
+        }
+        else {
+            const { token } = data.data;
+            saveTokenToLocalStorage(token)
+            redirectTo("dashbord")
+        }
 
-        // console.log(data)
-        
-        // // Now you can use these variables as needed
-        // console.log(_id, user_id, token, firstName, lastName, password, phone_number, created_at, role, __v);
 
-        saveTokenToLocalStorage(token)
-        
+
 
         // Do something with the response data.
     } catch (error) {
@@ -62,4 +53,37 @@ const saveTokenToLocalStorage = (token) => {
         console.error('LocalStorage is not supported in this browser');
         // You might want to implement an alternative solution for token storage here
     }
+};
+
+
+const displayErrorMessage = () => {
+    // Assuming you have an element with the id 'error-message' to display the error
+    const errorMessageElement = document.getElementById('error-message');
+
+    // Display the error message or handle it in a way that makes sense for your UI
+    if (errorMessageElement) {
+        errorMessageElement.innerText = 'Invalid credentials. Please try again.';
+    } else {
+        // If the error message element doesn't exist, you might want to create and append it to the DOM
+        // For example, you could append it to the form
+        const formElement = document.getElementById('loginForm');
+        if (formElement) {
+            const newErrorMessageElement = document.createElement('p');
+            newErrorMessageElement.id = 'error-message';
+            newErrorMessageElement.innerText = 'Invalid credentials. Please try again.';
+            formElement.appendChild(newErrorMessageElement);
+        }
+    }
+};
+
+const wipeOutPreviousForm = () => {
+    // Assuming you have an element with the id 'loginForm' for the form
+    const formElement = document.getElementById('loginForm');
+    formElement.reset()
+};
+
+
+const redirectTo = (path) => {
+
+    window.location.replace = `/client/${path}.html`;
 };

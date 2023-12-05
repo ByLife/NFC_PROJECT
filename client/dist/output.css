@@ -534,4 +534,9 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
-
+#error-message {
+  color: #e53e3e;
+  /* Red color, you can change this to your preferred color */
+  font-size: 20px;
+  margin-top: 8px;
+}

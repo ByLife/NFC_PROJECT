@@ -26,7 +26,7 @@ const createUser = async () => {
     }
 
     const data = await response.json();
-    console.log(data);
+    
 
     // Do something with the response data.
   } catch (error) {
