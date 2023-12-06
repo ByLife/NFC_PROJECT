@@ -1,31 +1,89 @@
-import Card from "./components/card/card.js"
+import Card from "./components/card/card.js";
+import { getItemFromLocalStorage, Logout } from "./utils/index.js";
 
+let userInfo = JSON.parse(getItemFromLocalStorage("userInfo"));
+let HelloTitle = document.getElementsByClassName("userName");
+let LogoutButton = document.getElementById("Logout");
 
+LogoutButton.addEventListener("click", Logout);
+let firstName = userInfo.data.firstName;
+let lastName = userInfo.data.lastName;
+let token = userInfo.data.token;
+const products = [];
 
-const getItemFromLocalStorage = (key) => {
-    // Check if localStorage is supported by the browser
-    if (typeof Storage !== 'undefined') {
-        // Retrieve the value from localStorage based on the provided key
-        return localStorage.getItem(key);
-    } else {
-        console.error('LocalStorage is not supported in this browser');
-        return null;
-        // You might want to implement an alternative solution for storage here
-    }
+const retrieveAllProducts = async token => {
+	const params = {
+		token: token
+	};
+
+	let urlApi = "http://localhost:3000";
+	let apiPath = "/api";
+	let registerPath = "/user/product/get";
+
+	const queryParams = new URLSearchParams(params);
+	const url = urlApi + apiPath + registerPath + "/?" + queryParams;
+
+	try {
+		const response = await fetch(url);
+
+		if (!response.ok) {
+			throw new Error(`HTTP error! Status: ${response.status}`);
+		}
+
+		const data = await response.json();
+    let Userproducts = data.data;
+
+		if (Userproducts !== null) {
+			Userproducts.forEach(p => {
+				products.push(p);
+			});
+		}
+		displayContent();
+	} catch (error) {
+		// Handle errors here.
+		console.error("Error:", error);
+	}
 };
 
-let userInfo = getItemFromLocalStorage('userInfo')
-userInfo = JSON.parse(userInfo)
+const displayContent = () => {
+  if (firstName != undefined && lastName != undefined) {
+      HelloTitle[0].textContent += `${firstName} ${lastName}`;
+  } else {
+      HelloTitle[0].textContent += `Unknown User ... `;
+  }
 
-console.log(userInfo);
+  const cardContainerId = "card-container";
+
+  if (products.length !== 0) {
+      products.forEach(p => {
+          const cardComponent = new Card(cardContainerId);
+          cardComponent.createCard(
+              "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg",
+              `${p.productName}`,
+              `Actual Owner : ${p.actualOwner}`,
+              `${p.price} $`,
+              "more",
+              "Claim this product",
+              "#"
+          );
+      });
+  } else {
+      // If there are no products, display a message
+      const contentElement = document.createElement("div");
+      contentElement.textContent = "No products here.";
+      contentElement.style.color = "#666"; // You can customize the style
+      contentElement.style.fontSize = "16px";
+      contentElement.style.textAlign = "center";
+
+      // Assuming you have an element with the id 'card-container' to append the message to
+      const WelcomeMessage = document.getElementById("welcomeMessage")
+      WelcomeMessage.textContent = ""
+      const cardContainer = document.getElementById(cardContainerId);
+      cardContainer.innerHTML = ""; // Clear the container
+      cardContainer.appendChild(contentElement);
+  }
+};
 
 
-const cardContainerId = 'card-container';
-const cardComponent = new Card(cardContainerId);
-cardComponent.createCard(
-  'https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg',
-  'Noteworthy technology acquisitions 2021',
-  'Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.',
-  'Read more',
-  '#'
-);
+
+retrieveAllProducts(token);

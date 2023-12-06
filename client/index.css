@@ -3,10 +3,34 @@
 @tailwind utilities;
 
 
+/* card.css */
+.card {
+	max-width: 20rem;
+	background-color: white;
+	border: 1px solid #ddd;
+	border-radius: 0.5rem;
+	overflow: hidden;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+    width: 400px;
+    height:250px;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+  }
 
 
-#error-message {
-    color: #e53e3e; /* Red color, you can change this to your preferred color */
-    font-size: 20px;
-    margin-top: 8px;
+.card-content {
+	padding: 1.25rem;
+}
+
+.card-title {
+	margin-bottom: 0.5rem;
+	font-size: 1.25rem;
+	font-weight: bold;
+}
+
+.card-text {
+	color: #666;
 }

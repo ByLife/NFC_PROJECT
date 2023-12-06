@@ -1,6 +1,17 @@
-/*
-! tailwindcss v3.3.6 | MIT License | https://tailwindcss.com
-*/
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+#error-message {
+  color: #e53e3e;
+  /* Red color, you can change this to your preferred color */
+  font-size: 20px;
+  margin-top: 8px;
+}
+
+/* ! tailwindcss v3.3.6 | MIT License | https://tailwindcss.com */
 
 /*
 1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
@@ -440,7 +451,7 @@ video {
   display: none;
 }
 
-*, ::before, ::after {
+*, ::before, ::after{
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;
   --tw-translate-x: 0;
@@ -490,7 +501,7 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
-::backdrop {
+::backdrop{
   --tw-border-spacing-x: 0;
   --tw-border-spacing-y: 0;
   --tw-translate-x: 0;
@@ -540,9 +551,34 @@ video {
   --tw-backdrop-sepia:  ;
 }
 
-#error-message {
-  color: #e53e3e;
-  /* Red color, you can change this to your preferred color */
-  font-size: 20px;
-  margin-top: 8px;
+/* card.css */
+
+.card {
+  max-width: 20rem;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+  width: 400px;
+  height:250px;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.card-content {
+  padding: 1.25rem;
+}
+
+.card-title {
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.card-text {
+  color: #666;
 }

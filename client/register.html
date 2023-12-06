@@ -4,24 +4,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="register.css">
   <title>CHIFFREMENT|P3</title>
 </head>
 
 
-
-
 <body>
-  <h1 class="text-3xl font-bold underline">
-    Bonjour
-  </h1>
-
-  <div class="w-full max-w-xs">
-
-    test
-    <select name="" id="">
-    </select>
+  <div id="container">
+    <header>Register new account</header>
+    <form id="loginForm">
+      <fieldset>
+        <br />
+        <input type="text" name="firstName" id="firstName" placeholder="firstName" required autofocus>
+        <br /><br />
+        <input type="text" name="lastName" id="lastName" placeholder="lastName" required>
+        <br /><br />
+        <input type="password" name="password" id="password" placeholder="Password" required>
+        <br /><br />
+        <input type="tel" name="phoneNumber" id="phoneNumber" placeholder="0123456789" required>
+        <br /> <br /> <br />
+        <button id="signInButton" type="button">
+          Sign In
+        </button>
+      </fieldset>
+    </form>
+    <a href="login.html">
+      <p>Already an Account ? Log in </p>
+    </a>
   </div>
 
+  <script type="module" src="register.js"></script>
 </body>
 
 </html>

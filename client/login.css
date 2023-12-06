@@ -1,0 +1,119 @@
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    background: url("https://wallpapers.com/images/hd/advanced-encryption-technology-in-action-05lepa7o0bls4tt9.jpg") no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Droid Serif', serif;
+}
+
+#error-message {
+	color: #e53e3e; /* Red color, you can change this to your preferred color */
+	font-size: 20px;
+	margin-top: 8px;
+}
+
+#container {
+    background: rgba(3, 3, 55, 0.5);
+    width: 18.75rem;
+    height: 25rem;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+header {
+    text-align: center;
+    vertical-align: middle;
+    line-height: 3rem;
+    height: 3rem;
+    background: rgba(3, 3, 55, 0.7);
+    font-size: 1.4rem;
+    color: #d3d3d3;
+}
+
+fieldset {
+    border: 0;
+    text-align: center;
+}
+
+input[type="submit"] {
+    background: rgba(235, 30, 54, 1);
+    border: 0;
+    display: block;
+    width: 70%;
+    margin: 0 auto;
+    color: white;
+    padding: 0.7rem;
+    cursor: pointer;
+}
+
+input {
+    background: transparent;
+    border: 0;
+    border-left: 4px solid;
+    border-color: #FF0000;
+    padding: 10px;
+    color: white;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    outline: 0;
+    background: rgba(235, 30, 54, 0.3);
+    border-radius: 1.2rem;
+    border-color: transparent;
+}
+
+::placeholder {
+    color: #d3d3d3;
+}
+
+/*Media queries */
+
+@media all and (min-width: 481px) and (max-width: 568px) {
+    #container {
+        margin-top: 10%;
+        margin-bottom: 10%;
+    }
+}
+    @media all and (min-width: 569px) and (max-width: 768px) {
+        #container {
+            margin-top: 5%;
+            margin-bottom: 5%;
+        }
+    }
+
+
+#signInButton {
+    background-color: #d61717; /* bg-blue-500 */
+    color: #ffffff; /* text-white */
+    font-weight: bold; /* font-bold */
+    padding: 0.5rem 1rem; /* py-2 px-4 */
+    border-radius: 0.25rem; /* rounded */
+    cursor: pointer; /* hover:bg-blue-700 */
+    transition: background-color 0.3s ease; /* hover transition */
+
+    /* Hover state */
+    &:hover {
+        background-color: #ff0000; /* hover:bg-blue-700 */
+    }
+
+    /* Focus state */
+    &:focus {
+        outline: none; /* focus:outline-none */
+        box-shadow: 0 0 0 3px rgba(118, 5, 5, 0.5); /* focus:shadow-outline */
+    }
+}
+
+
+a > p {
+    color: white;
+    list-style: none;
+}
