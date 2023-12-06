@@ -1,8 +1,11 @@
-import { saveTokenToLocalStorage, redirectTo, getItemFromLocalStorage } from "./utils/index.js"
-import { ApiUrl, baseUrl } from "./config.js"
+import {
+	saveTokenToLocalStorage,
+	redirectTo,
+	getItemFromLocalStorage,
+	ApiUrl
+} from "./utils/index.js";
 
-
-const SignInButton = document.getElementById("signInButton")
+const SignInButton = document.getElementById("signInButton");
 
 const loginUser = async () => {
 	const phoneNumber = document.getElementById("phoneNumber").value;
@@ -13,12 +16,11 @@ const loginUser = async () => {
 		password: password
 	};
 
-	let urlApi = ApiUrl;
 	let apiPath = "/api";
 	let registerPath = "/user/auth/login";
 
 	const queryParams = new URLSearchParams(params);
-	const url = urlApi + apiPath + registerPath + "/?" + queryParams;
+	const url = ApiUrl + apiPath + registerPath + "/?" + queryParams;
 
 	try {
 		const response = await fetch(url);
@@ -33,29 +35,23 @@ const loginUser = async () => {
 			wipeOutPreviousForm();
 		} else {
 			const { token } = data.data;
-			console.log("save to local storage")
 			saveTokenToLocalStorage("authToken", token);
 			saveTokenToLocalStorage("userInfo", JSON.stringify(data));
-			const redirection = getItemFromLocalStorage("redirectUrl")
+			const redirection = getItemFromLocalStorage("redirectUrl");
 			if (redirection) {
-				console.log(redirection)
-				localStorage.removeItem("redirectUrl")
-				window.location.href = redirection
+				localStorage.removeItem("redirectUrl");
+				window.location.href = redirection;
 			} else {
-				console.log("jehdh")
 				redirectTo("dashbord");
 			}
-
 		}
-
-		// Do something with the response data.
 	} catch (error) {
 		// Handle errors here.
 		console.error("Error:", error);
 	}
 };
 
-SignInButton.addEventListener('click', () => loginUser())
+SignInButton.addEventListener("click", () => loginUser());
 const displayErrorMessage = () => {
 	// Assuming you have an element with the id 'error-message' to display the error
 	const errorMessageElement = document.getElementById("error-message");
@@ -81,4 +77,3 @@ const wipeOutPreviousForm = () => {
 	const formElement = document.getElementById("loginForm");
 	formElement.reset();
 };
-

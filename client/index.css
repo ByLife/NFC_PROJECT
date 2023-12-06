@@ -4,6 +4,13 @@
 
 
 /* card.css */
+
+#card-container{
+	display:flex;
+	justify-content: space-around;
+	align-items: center;
+}
+
 .card {
 	max-width: 20rem;
 	background-color: white;

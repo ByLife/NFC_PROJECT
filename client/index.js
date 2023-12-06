@@ -1,5 +1,4 @@
-import { redirectTo } from "./utils/index.js";
-import {ApiUrl} from "./config.js"
+import { ApiUrl, redirectTo } from "./utils/index.js";
 
 let url = window.location.search;
 const token = url.split("=")[1];
@@ -9,12 +8,11 @@ const redirectUser = async token => {
 		token: token
 	};
 
-	let urlApi = ApiUrl;
 	let apiPath = "/api";
 	let registerPath = "/user/auth/get";
 
 	const queryParams = new URLSearchParams(params);
-	const url = urlApi + apiPath + registerPath + "/?" + queryParams;
+	const url = ApiUrl + apiPath + registerPath + "/?" + queryParams;
 
 	try {
 		const response = await fetch(url);
