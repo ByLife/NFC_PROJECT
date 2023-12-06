@@ -7,8 +7,8 @@ export interface Product {
     price: number;
     productName: string;
 
-    previousOwners: Array<UserDocument>
-    actualOwner: UserDocument
+    previousOwners: Array<Object>
+    actualOwner: Object
 }
 
 export interface ProductDocument extends Product, Document {}
@@ -20,8 +20,8 @@ const ProductSchema = new Schema({
     price: {type: Number, required: true, unique: false},
     productName: {type: String, required: true, unique: false},
 
-    previousOwners: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    actualOwner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: false, default: null }
+    previousOwners: [{ type: Object }],
+    actualOwner: { type: Object, required: false, default: null }
 });
 
 export default mongoose.model<ProductDocument>("Product", ProductSchema);
