@@ -1,10 +1,6 @@
 import {
 	ApiUrl,
-	Logout,
-	baseUrl,
-	getItemFromLocalStorage,
-	redirectTo,
-	saveTokenToLocalStorage
+	Logout, redirectTo
 } from "./utils/index.js";
 
 const queryString = window.location.search;

@@ -1,4 +1,4 @@
-import {  ApiUrl, getItemFromLocalStorage, redirectTo } from "./utils/index.js";
+import { ApiUrl, getItemFromLocalStorage, redirectTo } from "./utils/index.js";
 
 
 const RegisterButton = document.getElementById("signInButton");

@@ -1,10 +1,5 @@
 import {
-	getItemFromLocalStorage,
-	redirectTo,
-	saveTokenToLocalStorage,
-	Logout,
-	baseUrl,
-	ApiUrl
+	redirectTo, Logout, ApiUrl
 } from "./utils/index.js";
 
 let url = window.location.search;
