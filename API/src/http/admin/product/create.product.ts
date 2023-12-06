@@ -24,9 +24,9 @@ export default {
             const price = req.query['price']
 
             if(typeof token !== "string") return res.send({error: "Token need to be a string"})
-            if(typeof serial_id !== "string") return res.send({error: "Token need to be a string"})
-            if(typeof uid !== "string") return res.send({error: "Token need to be a string"})
-            if(typeof productName !== "string") return res.send({error: "Token need to be a string"})
+            if(typeof serial_id !== "string") return res.send({error: "SerialID need to be a string"})
+            if(typeof uid !== "string") return res.send({error: "UID need to be a string"})
+            if(typeof productName !== "string") return res.send({error: "Name need to be a string"})
             if(typeof price !== "string") return res.send({error: "Price need to be a string"})
             
             if(token.length < 14) return res.send({error: "Token invalid"})

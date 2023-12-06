@@ -16,7 +16,7 @@ export default {
             const token = req.query['token'];
             const uid = req.query['uid'];
             const serialNumber = req.query['serialNumber'];
-            
+            Logger.debug(token)
             if(typeof token !== "string") return res.send({error: "Token need to be a string"})
             if(typeof uid != "string") return res.send({error: "Token need to be a string"})
             if(typeof serialNumber != "string") return res.send({error: "Token need to be a string"})
@@ -35,8 +35,9 @@ export default {
             if(!product) return res.send({error: "No product found with this UID and Serial Number"})
 
             
-            if(product.actualOwner.token != token && product.actualOwner != null) return res.send({error: "The product has already an owner"})
+            if(product.actualOwner != null) return res.send({error: "The product has already an owner"})
 
+            Logger.debug(user)
             product.actualOwner = user
 
             await product.save()

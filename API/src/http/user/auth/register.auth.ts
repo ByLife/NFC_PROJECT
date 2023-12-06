@@ -56,6 +56,7 @@ export default {
 
     
         } catch (err) {
+            Logger.error(err)
             res.status(400).send("An error occurred");
         }
     }

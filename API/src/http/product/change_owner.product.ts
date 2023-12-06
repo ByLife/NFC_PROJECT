@@ -1,6 +1,6 @@
 import express from "express";
 import bcrypt from "bcrypt";
-import User from "../../database/models/User";
+import User, { UserDocument } from "../../database/models/User";
 import Logger from "../../logger";
 import Product from "../../database/models/Product";
 
@@ -37,8 +37,9 @@ export default {
 
             if(!product) return res.send({error: "No product found with this UID and Serial Number"})
 
-            if(product.actualOwner.token != token) Logger.fatal(`The user ${user.firstName} ${user.lastName} with phone ${user.phone_number} has illegaly made a request to change a product ownership from the product ${product.serial_id}`)
-            if(product.actualOwner.token != token) return res.send({error: "The product has already an other owner"})
+            if(product.actualOwner == null) return res.send({error: "The product has not been claimed"})
+            if((product.actualOwner as UserDocument).token != token) Logger.fatal(`The user ${user.firstName} ${user.lastName} with phone ${user.phone_number} has illegaly made a request to change a product ownership from the product ${product.serial_id}`)
+            if((product.actualOwner as UserDocument).token != token) return res.send({error: "The product has already an other owner"})
 
             const changeUser = await User.findOne({user_id: userId})
 
