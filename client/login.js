@@ -1,51 +1,63 @@
-import {saveTokenToLocalStorage,redirectTo} from "./utils/index.js"
+import { saveTokenToLocalStorage, redirectTo, getItemFromLocalStorage } from "./utils/index.js"
+import { ApiUrl, baseUrl } from "./config.js"
+
 
 const SignInButton = document.getElementById("signInButton")
 
 const loginUser = async () => {
-    const phoneNumber = document.getElementById("phoneNumber").value;
+	const phoneNumber = document.getElementById("phoneNumber").value;
 	const password = document.getElementById("password").value;
-    
+
 	const params = {
-        phoneNumber: phoneNumber,
+		phoneNumber: phoneNumber,
 		password: password
 	};
-    
-	let urlApi = "http://localhost:3000";
+
+	let urlApi = ApiUrl;
 	let apiPath = "/api";
 	let registerPath = "/user/auth/login";
-    
+
 	const queryParams = new URLSearchParams(params);
 	const url = urlApi + apiPath + registerPath + "/?" + queryParams;
-    
+
 	try {
-        const response = await fetch(url);
-        
+		const response = await fetch(url);
+
 		if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+			throw new Error(`HTTP error! Status: ${response.status}`);
 		}
-        
+
 		const data = await response.json();
 		if (data.error) {
-            displayErrorMessage();
+			displayErrorMessage();
 			wipeOutPreviousForm();
 		} else {
-            const { token } = data.data;
+			const { token } = data.data;
+			console.log("save to local storage")
 			saveTokenToLocalStorage("authToken", token);
 			saveTokenToLocalStorage("userInfo", JSON.stringify(data));
-			redirectTo("dashbord");
+			const redirection = getItemFromLocalStorage("redirectUrl")
+			if (redirection) {
+				console.log(redirection)
+				localStorage.removeItem("redirectUrl")
+				window.location.href = redirection
+			} else {
+				console.log("jehdh")
+				redirectTo("dashbord");
+			}
+
 		}
-        
+
 		// Do something with the response data.
 	} catch (error) {
-        // Handle errors here.
+		// Handle errors here.
 		console.error("Error:", error);
 	}
 };
 
-SignInButton.addEventListener('click',() => loginUser())
+SignInButton.addEventListener('click', () => loginUser())
 const displayErrorMessage = () => {
-    // Assuming you have an element with the id 'error-message' to display the error
+	// Assuming you have an element with the id 'error-message' to display the error
 	const errorMessageElement = document.getElementById("error-message");
 
 	// Display the error message or handle it in a way that makes sense for your UI

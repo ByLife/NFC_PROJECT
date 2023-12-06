@@ -117,3 +117,8 @@ a > p {
     color: white;
     list-style: none;
 }
+
+
+label{
+    color: white;
+}

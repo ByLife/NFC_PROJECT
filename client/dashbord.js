@@ -1,22 +1,64 @@
 import Card from "./components/card/card.js";
+import {ApiUrl} from "./config.js"
+
 import { getItemFromLocalStorage, Logout } from "./utils/index.js";
 
 let userInfo = JSON.parse(getItemFromLocalStorage("userInfo"));
 let HelloTitle = document.getElementsByClassName("userName");
 let LogoutButton = document.getElementById("Logout");
+let userIdElement = document.getElementById("userId")
+
 
 LogoutButton.addEventListener("click", Logout);
 let firstName = userInfo.data.firstName;
 let lastName = userInfo.data.lastName;
 let token = userInfo.data.token;
+let userId = userInfo.data.user_id;
+
+console.log(userId)
 const products = [];
+
+const retrieveAllUserProducts = async token => {
+	const params = {
+		token: token
+	};
+
+	let urlApi = ApiUrl;
+	let apiPath = "/api";
+	let registerPath = "/user/product/get";
+
+	const queryParams = new URLSearchParams(params);
+	const url = urlApi + apiPath + registerPath + "/?" + queryParams;
+
+	try {
+		const response = await fetch(url);
+
+		if (!response.ok) {
+			throw new Error(`HTTP error! Status: ${response.status}`);
+		}
+
+		const data = await response.json();
+    let Userproducts = data.data;
+
+		if (Userproducts !== null) {
+			Userproducts.forEach(p => {
+				products.push(p);
+			});
+		}
+		displayContent();
+	} catch (error) {
+		// Handle errors here.
+		console.error("Error:", error);
+	}
+};
+
 
 const retrieveAllProducts = async token => {
 	const params = {
 		token: token
 	};
 
-	let urlApi = "http://localhost:3000";
+	let urlApi = ApiUrl;
 	let apiPath = "/api";
 	let registerPath = "/user/product/get";
 
@@ -46,7 +88,8 @@ const retrieveAllProducts = async token => {
 };
 
 const displayContent = () => {
-  if (firstName != undefined && lastName != undefined) {
+  if (firstName != undefined && lastName != undefined && userId != undefined) {
+      userIdElement.textContent += userId
       HelloTitle[0].textContent += `${firstName} ${lastName}`;
   } else {
       HelloTitle[0].textContent += `Unknown User ... `;
@@ -62,9 +105,9 @@ const displayContent = () => {
               `${p.productName}`,
               `Actual Owner : ${p.actualOwner}`,
               `${p.price} $`,
-              "more",
-              "Claim this product",
-              "#"
+              "",
+              "Change the owner",
+              `./changeOwner.html?uid=${p.uid}&serialNumber=${p.serial_id}`
           );
       });
   } else {
@@ -86,4 +129,4 @@ const displayContent = () => {
 
 
 
-retrieveAllProducts(token);
+retrieveAllUserProducts(token);

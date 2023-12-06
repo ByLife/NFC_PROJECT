@@ -1,4 +1,5 @@
 import { redirectTo } from "./utils/index.js";
+import {ApiUrl} from "./config.js"
 
 let url = window.location.search;
 const token = url.split("=")[1];
@@ -8,7 +9,7 @@ const redirectUser = async token => {
 		token: token
 	};
 
-	let urlApi = "http://localhost:3000";
+	let urlApi = ApiUrl;
 	let apiPath = "/api";
 	let registerPath = "/user/auth/get";
 

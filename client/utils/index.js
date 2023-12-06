@@ -1,4 +1,3 @@
-
 export const getItemFromLocalStorage = (key) => {
     // Check if localStorage is supported by the browser
     if (typeof Storage !== 'undefined') {
@@ -12,7 +11,7 @@ export const getItemFromLocalStorage = (key) => {
 };
 
 
-export const saveTokenToLocalStorage = (key,token) => {
+export const saveTokenToLocalStorage = (key, token) => {
     // Check if localStorage is supported by the browser
     if (typeof Storage !== 'undefined') {
         // Save the token to localStorage
@@ -26,7 +25,7 @@ export const saveTokenToLocalStorage = (key,token) => {
 };
 
 export const redirectTo = path => {
-	window.location.href = `http://localhost:5500/client/${path}.html`;
+	window.location.href = `http://10.6.112.62:5500/client/${path}.html`;
 };
 
 export const Logout = () => {

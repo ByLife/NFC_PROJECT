@@ -1,4 +1,6 @@
-import {  redirectTo } from "./utils/index.js";
+import {  getItemFromLocalStorage, redirectTo } from "./utils/index.js";
+import {ApiUrl} from "./config.js"
+
 
 const RegisterButton = document.getElementById("signInButton");
 
@@ -17,12 +19,12 @@ const createUser = async () => {
     };
 
   
-    let urlApi = "http://localhost:3000"
+    let urlApi = ApiUrl
     let apiPath = "/api"
     let registerPath = "/user/auth/register"
   
     const queryParams = new URLSearchParams(params);
-    const url = urlApi + apiPath + registerPath + "/?" + queryParams
+    const url = urlApi + apiPath + registerPath + "?" + queryParams
   
     try {
       const response = await fetch(url);
@@ -37,7 +39,13 @@ const createUser = async () => {
 			displayErrorMessage();
 			wipeOutPreviousForm();
 		} else {
-			redirectTo("login");
+			const redirection = getItemFromLocalStorage("redirectUrl")
+      if(redirection) {
+        localStorage.removeItem("redirectUrl")
+        window.location.href = redirection
+      } else {
+        redirectTo("login")
+      }
 		}
       
   
