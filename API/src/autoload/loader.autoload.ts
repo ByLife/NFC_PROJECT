@@ -77,7 +77,7 @@ export class Autoload { // This is the class that starts the server
     }
     
     
-    protected static autoloadRoutesFromDirectory(directory: string): void {
+    public static autoloadRoutesFromDirectory(directory: string): void {
         const httpMethods: (keyof express.Application)[] = ["get", "post", "put", "delete", "patch", "head", "options"];
         const files = fs.readdirSync(directory);
     
@@ -155,6 +155,7 @@ export class Autoload { // This is the class that starts the server
             Autoload.rules()
             Autoload.app.use(express.json()) // This is the middleware that parses the body of the request to JSON format
             Autoload.autoloadRoutesFromDirectory(path.join(__dirname, '../http'));
+            console.log(__dirname)
 
             Autoload.app.listen(Autoload.port, () => {
                 Logger.success(`Server started on port ${Autoload.port}`)
