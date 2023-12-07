@@ -38,6 +38,22 @@
 	font-weight: bold;
 }
 
+.card-title:hover{
+	font-size: 2rem;
+}
+
 .card-text {
 	color: #666;
+}
+
+
+body {
+	background: url("https://wallpapers.com/images/hd/advanced-encryption-technology-in-action-05lepa7o0bls4tt9.jpg")
+		no-repeat center center fixed;
+	background-size: cover;
+	font-family: "Droid Serif", serif;
+}
+
+p,h1{
+	color:white
 }
