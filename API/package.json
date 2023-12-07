@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start": "npx nodemon index.ts"
+  },
   "dependencies": {
     "any-ascii": "^0.3.2",
     "bcrypt": "^5.1.1",
